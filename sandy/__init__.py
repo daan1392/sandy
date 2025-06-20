@@ -1,6 +1,13 @@
 import logging
 import sys
 
+import os
+
+# Suppress the NUMEXPR_MAX_THREADS warning
+if "NUMEXPR_MAX_THREADS" not in os.environ:
+    max_threads = min(12, os.cpu_count() or 1)  # fallback to 1 if None
+    os.environ["NUMEXPR_MAX_THREADS"] = str(max_threads)
+
 testdir = "tests"
 
 
